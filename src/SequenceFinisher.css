@@ -31,7 +31,12 @@
     padding: var(--square-size);
     font-weight: bold;
     font-size: var(--square-size);
+    width: var(--square-size);
+    height: var(--square-size);
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .choices-item--correct {
