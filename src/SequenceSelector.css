@@ -1,0 +1,11 @@
+.sequence-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 0.5rem;
+}
+
+.sequence-selector--selected {
+    background-color: lightgreen;
+}

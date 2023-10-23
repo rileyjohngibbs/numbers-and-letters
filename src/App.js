@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
 import SequenceFinisher from "./SequenceFinisher";
+import SequenceSelector from "./SequenceSelector";
 import sequences from "./sequences.json";
+import "./App.css";
 
 function App() {
   const [sequenceRound, setSequenceRound] = useState({
@@ -9,9 +11,13 @@ function App() {
     index: 0,
     wrongs: [],
   });
+  const [sequenceKeys, setSequenceKeys] = useState(["upperLetters"]);
+
+  const pickSequenceKey = () =>
+    sequenceKeys[Math.floor(Math.random() * sequenceKeys.length)];
 
   useEffect(() => {
-    setSequenceRound(generateSequenceRound());
+    setSequenceRound(generateSequenceRound(pickSequenceKey()));
   }, []);
 
   return (
@@ -20,14 +26,26 @@ function App() {
         sequence={sequenceRound.sequence}
         index={sequenceRound.index}
         wrongs={sequenceRound.wrongs}
-        endCallback={() => setSequenceRound(generateSequenceRound())}
+        endCallback={() =>
+          setSequenceRound(generateSequenceRound(pickSequenceKey()))
+        }
       />
+      <div className="sequences-selector">
+        {Object.keys(sequences).map((key, i) => (
+          <SequenceSelector
+            key={i}
+            sequence={sequences[key]}
+            sequenceKeys={sequenceKeys}
+            setSequenceKeys={setSequenceKeys}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
-const generateSequenceRound = () => {
-  const source = sequences.upperLetters.sequence;
+const generateSequenceRound = (sequenceKey) => {
+  const source = sequences[sequenceKey].sequence;
   const absIndex = Math.floor(Math.random() * source.length);
 
   const sequenceOptions = [

@@ -58,16 +58,20 @@ const SequenceFinisher = ({ sequence, index, wrongs, endCallback }) => {
           </div>
         ))}
       </div>
-      {guessedCorrect() ? <NextArrow clickHandler={endCallback} /> : ""}
+      <NextArrow clickHandler={endCallback} complete={guessedCorrect()} />
     </div>
   );
 };
 
-const NextArrow = ({ clickHandler }) => (
+const NextArrow = ({ clickHandler, complete }) => (
   <div className="next-arrow-container" onClick={() => clickHandler()}>
-    <svg className="next-arrow" viewBox="0 0 60 30">
-      <polygon points="0,10 48,12 45,0 60,15 45,30 48,18 0,20" fill="black" />
-    </svg>
+    {complete ? (
+      <svg className="next-arrow" viewBox="0 0 60 30">
+        <polygon points="0,10 48,12 45,0 60,15 45,30 48,18 0,20" fill="black" />
+      </svg>
+    ) : (
+      ""
+    )}
   </div>
 );
 
